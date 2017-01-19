@@ -46,6 +46,8 @@ public class WebShoutSupport extends ShoutSupport {
     @Override
     public void seanShout(String message) {
         loginAs("Sean");
+        getPeople().get("Sean").shout(message);
+
         shout(message);
         rememberMessageShoutedBy(message, "Sean");
 
