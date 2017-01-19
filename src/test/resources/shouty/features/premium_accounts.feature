@@ -25,7 +25,7 @@ Feature: Premium account
     When Sean shouts 3 messages containing the word "buy"
     Then Lucy hears all Sean's messages
     And Sean should have 15 credits
-
+  @high-impact
   Scenario: Mention the word "buy" several times in the same shout
     Given Sean has bought 100 credits
     When Sean shouts "buy, buy buy!"

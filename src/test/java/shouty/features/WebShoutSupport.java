@@ -3,8 +3,6 @@ package shouty.features;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.openqa.selenium.By;
-
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -78,27 +76,7 @@ public class WebShoutSupport extends ShoutSupport {
     private WebDriver getBrowserFor(String personName) {
         if (!browsers.containsKey(personName)) {
 
-
-            //  WebDriver b=new FirefoxDriver();
-            WebDriver b = null;
-            try {
-                b = new FirefoxDriver();
-                if (false) throw new MalformedURLException();
-//                 System.out.println("http://localhost:9515");
-//
-//
-//
-//                Map<String, Object> chromeOptions = new HashMap<String, Object>();
-//                chromeOptions.put("binary", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
-//                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-//                capabilities.setCapability("CAPABILITY", chromeOptions);
-//                b= new RemoteWebDriver(new URL("http://localhost:9515"), capabilities);
-//                b.get("http://www.google.com");
-            } catch(MalformedURLException e){
-//                System.out.println("Bad things happen to good people " + e.getStackTrace());
-//
-            }
-
+            WebDriver b  = new FirefoxDriver();
             browsers.put(personName,b);
 
 
