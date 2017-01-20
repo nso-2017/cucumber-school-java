@@ -125,14 +125,27 @@ public class Stepdefs {
     public void listener_does_not_hear_Sean_s_message(String listenerName) throws Throwable {
         List<String> heardByListener = shoutSupport.getMessagesHeardBy(listenerName);
         List<String> messagesFromSean = shoutSupport.getMessagesShoutedBy("Sean");
-        String[] messagesFromSeanArray = messagesFromSean.toArray(new String[messagesFromSean.size()]);
+        String[] messagesFromSeanArray = {""};;
+        try {
+
+            messagesFromSeanArray = messagesFromSean.toArray(new String[messagesFromSean.size()]);
+        }catch(NullPointerException e){
+            messagesFromSeanArray[0] = "";
+        }
         assertThat(heardByListener, not(hasItems(messagesFromSeanArray)));
     }
 
     @Then("^nobody hears Sean's message$")
     public void nobody_hears_Sean_s_message() throws Throwable {
-        List<String> messagesFromSean = shoutSupport.getMessagesShoutedBy("Sean");
-        String[] messagesFromSeanArray = messagesFromSean.toArray(new String[messagesFromSean.size()]);
+        String[] messagesFromSeanArray = {""};
+        try {
+            List<String> messagesFromSean = shoutSupport.getMessagesShoutedBy("Sean");
+             messagesFromSeanArray = messagesFromSean.toArray(new String[messagesFromSean.size()]);
+        } catch(NullPointerException e){
+
+            messagesFromSeanArray[0] = "";
+
+        }
         for (String name: shoutSupport.getPeople().keySet()) {
             assertThat(shoutSupport.getMessagesHeardBy(name), not(hasItems(messagesFromSeanArray)));
         }
@@ -140,6 +153,6 @@ public class Stepdefs {
 
     @Then("^Sean should have (\\d+) credits$")
     public void sean_should_have_credits(int credits) throws Throwable {
-        assertEquals(credits, shoutSupport.getPeople().get("Sean").getCredits());
+        assertEquals(credits, shoutSupport.getCreditsOf("Sean"));
     }
 }

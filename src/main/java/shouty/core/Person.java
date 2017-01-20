@@ -12,6 +12,7 @@ public class Person {
     private final int location;
     private int credits;
 
+
     public Person(Network network, int location) {
         this.network = network;
         this.location = location;
@@ -25,11 +26,18 @@ public class Person {
 
     public void shout(String message) {
         if (!canAfford(message)) {
+
             return;
         }
         deductCredits(message);
         network.broadcast(message, this);
+
     }
+    public boolean canShout(String message){
+         return canAfford(message);
+    }
+
+
 
     private boolean canAfford(String message) {
         return costOf(message) <= credits;

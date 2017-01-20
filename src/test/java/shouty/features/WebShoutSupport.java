@@ -10,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import shouty.core.Person;
 import shouty.web.ShoutyServer;
 
 import java.net.MalformedURLException;
@@ -46,10 +47,12 @@ public class WebShoutSupport extends ShoutSupport {
     @Override
     public void seanShout(String message) {
         loginAs("Sean");
-        getPeople().get("Sean").shout(message);
+        Person S = getPeople().get("Sean");
 
-        shout(message);
-        rememberMessageShoutedBy(message, "Sean");
+        if(S.canShout(message)) {
+            shout(message);
+            rememberMessageShoutedBy(message, "Sean");
+        }
 
     }
 
@@ -61,7 +64,7 @@ public class WebShoutSupport extends ShoutSupport {
 
     private void loginAs(String personName) {
         currentBrowser = getBrowserFor(personName);
-        System.out.println("Getting the stuff /? for " + personName);
+        //System.out.println("Getting the stuff /? for " + personName);
         currentBrowser.get("http://192.168.134.190:3000/?name=" + personName);
     }
 
@@ -75,14 +78,22 @@ public class WebShoutSupport extends ShoutSupport {
         return elements.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
+    public int getCreditsOf(String name) {
+        loginAs(name);
+        return getCredits();
+    }
+
+    private int getCredits() {
+        WebElement elements = currentBrowser.findElement(By.name("cred"));
+
+        return new Integer(elements.getText().toString());
+    }
+
     private WebDriver getBrowserFor(String personName) {
         if (!browsers.containsKey(personName)) {
 
             WebDriver b  = new FirefoxDriver();
             browsers.put(personName,b);
-
-
-
         }
         return browsers.get(personName);
     }

@@ -22,7 +22,7 @@ public abstract class ShoutSupport {
     public List<String> getMessagesShoutedBy(String name) {
         return messagesShoutedBy.get(name);
     }
-
+    public abstract int getCreditsOf(String name) ;
     protected void rememberMessageShoutedBy(String message, String personName) {
         if (!messagesShoutedBy.containsKey(personName)) {
             messagesShoutedBy.put(personName, new ArrayList<String>());

@@ -40,6 +40,22 @@ public class PersonTest {
         lucy.hear(message);
         assertEquals(asList(message), lucy.getMessagesHeard());
     }
+    @Test
+    public void success_with_shouting_message() {
+        Person sean = new Person(network, 0);
+        sean.setCredits(100);
+        sean.shout("here is a message containing the word buy");
+        assertEquals(true,sean.canShout("here is a message containing the word buy"));
+        assertEquals(95, sean.getCredits());
+    }
+    @Test
+    public void not_success_with_shouting_message() {
+        Person sean = new Person(network, 0);
+        sean.setCredits(1);
+        sean.shout("here is a message containing the word buy");
+        assertEquals(false,sean.canShout("here is a message containing the word buy"));
+        assertEquals(1, sean.getCredits());
+    }
 
     // Charging for shouts
 
