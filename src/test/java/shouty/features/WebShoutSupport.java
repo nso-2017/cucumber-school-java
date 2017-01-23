@@ -91,8 +91,7 @@ public class WebShoutSupport extends ShoutSupport {
 
     private WebDriver getBrowserFor(String personName) {
         if (!browsers.containsKey(personName)) {
-
-            WebDriver b  = new FirefoxDriver();
+           WebDriver b  = new FirefoxDriver();
             browsers.put(personName,b);
         }
         return browsers.get(personName);
